@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Page</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: Ivory;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .welcome-container {
+    background-color: AntiqueWhite;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 300px;
+    text-align: center;
+  }
+  .welcome-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+
+</style>
+</head>
+<body>
+{% csrf_token %}
+
+  <div class="welcome-container">
+
+    <h2>Welcome!</h2>
+    <p>You are logged in</p>
+    <a href="{% url 'form' %}" class="welcome-button">Fill your form</a>
+  </div>
+</body>
+</html>

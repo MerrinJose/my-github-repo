@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: Moccasin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 110vh;
+  }
+  .form-container {
+    background-color: Tan;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 500px;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+</style>
+</head>
+<body>
+
+    <div class="form-container">
+    <h2>Order Form</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">NAME:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+
+            <label for="date">DOB:</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+        <div class="form-group">
+
+            <label for="age">AGE:</label>
+            <input type="number" id="age" name="age" required>
+        </div>
+        <div class="form-group">GENDER:
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="male" value="option1" checked>
+                <label class="form-check-label" for="male">Male</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="female" value="option1" checked>
+                <label class="form-check-label" for="female">Female</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="other" value="option1" checked>
+                <label class="form-check-label" for="other">Others</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="gender" value="option1" checked>
+                <label class="form-check-label" for="gender">Do not wish to specify</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone">PHONE NO:</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+        </div>
+        <div class="form-group">
+            <label for="mail">EMAIL:</label>
+            <input type="email" id="mail" name="mail" required>
+        </div>
+        <div class="form-group">
+            <label for="address">ADDRESS:</label>
+            <input type="text" id="address" name="address" required>
+        </div>
+        <div class="form-group">
+        <label for="department">DEPARTMENT:</label>
+        <select id="department" name="department" required>
+                <option value="mathematics">Mathematics</option>
+                <option value="computer_science">Computer Science</option>
+                <option value="chemistry">Chemistry</option>
+                <option value="physics">Physics</option>
+                <option value="statistics">Statistics</option>
+                <option value="commerce">Commerce</option>
+
+        </select>
+        </div>
+        <div class="form-group">
+            <label for="course">COURSES:</label>
+            <select id="course" name="course" required>
+          <!-- Options will be populated dynamically based on the selected department -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="purpose">PURPOSE:</label>
+            <select id="purpose" name="purpose" required>
+                <option value="enquiry">Enquiry</option>
+                <option value="place_order">Place Order</option>
+                <option value="return">Return</option>
+                <option value="collect">Collect</option>
+
+            </select>
+        </div>
+        <div class="form-group">
+            <label>MATERIALS PROVIDE:</label>
+            <div>
+                <input type="checkbox" id="notebook" name="materials" value="notebook">
+                <label for="notebook">Debit Note Book</label><br>
+                <input type="checkbox" id="exam paper" name="materials" value="exam paper">
+                <label for="exam paper">Exam Paper</label><br>
+                <input type="checkbox" id="pen" name="materials" value="pen">
+                <label for="pen">Pen</label><br>
+                <input type="checkbox" id="pencil" name="materials" value="pencil">
+                <label for="pencil">Pencil</label><br>
+                <input type="checkbox" id="Ruler" name="materials" value="Ruler">
+                <label for="Ruler">Ruler</label><br>
+                <input type="checkbox" id="eraser" name="eraser" value="eraser">
+                <label for="eraser">Eraser</label><br>
+            </div>
+        </div>
+
+
+        <div>
+            <input type="submit" value="Submit & Logout">
+<!--            <input type="submit" value="Logout">-->
+        </div>
+
+    </form>
+        {% for msg in messages %}
+        <h2>{{msg}}</h2>
+        <h4>Click <a href="{% url 'home' %}">here</a> to return HOME PAGE</h4>
+        {% endfor %}
+  </div>
+
+  <script>
+    const departmentCourses = {
+      mathematics: ["BSC Maths", "MSC Maths"],
+      computer_science: ["BCA", "MCA"],
+      chemistry: ["BSC Chemistry", "MSC Chemistry"],
+      physics: ["BSC Physics", "BSC Physics"],
+      statistics: ["BSC Statistics", "DS"],
+      commerce: ["BCom", "MCom", "BBA"]
+    };
+
+    const courseSelect = document.getElementById("course");
+    const departmentSelect = document.getElementById("department");
+
+    departmentSelect.addEventListener("change", function () {
+      const selectedDepartment = departmentSelect.value;
+      const courses = departmentCourses[selectedDepartment];
+
+      courseSelect.innerHTML = "";
+
+      courses.forEach(course => {
+        const option = document.createElement("option");
+        option.value = course;
+        option.text = course;
+        courseSelect.appendChild(option);
+      });
+    });
+  </script>
+
+</body>
+</html>
